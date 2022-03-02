@@ -1,0 +1,57 @@
+Curl commmands:
+
+curl -H "Content-Type: application/json" -XPOST "localhost:9200/mooo/account/_bulk?pretty&refresh" --data-binary "@newsample.json"
+
+curl -XGET 'localhost:9200/mooo/_search?pretty' -H "Content-Type: application/json" -d'
+{
+"query": { "match_all": {} }
+}
+'
+
+curl -XPUT 'http://localhost:9200/_settings' -H 'Content-Type: application/json' -d '
+{
+    "index" : {
+        "number_of_replicas" : 0
+    }
+}'
+
+curl -XGET 'localhost:9200/.kibana_1/_search?pretty' -H "Content-Type: application/json" -d'
+{
+"query": { "match_all": {} }
+}
+'
+
+kibana commands:
+
+GET movie_data/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /_cat/indices?
+
+POST /_reindex
+{
+  "source": {
+    "index": "new_data"
+  },
+  "dest": {
+    "index": "movie_data"
+  }
+}
+
+DELETE /new_data
+
+POST movie_data/_reindex/_search?size=1000
+{
+  "source": { 
+    "index": "new_data",
+    "query": { "match_all": {} }
+  },
+  "dest": {
+    "index": "first_1000"
+  }
+}
+

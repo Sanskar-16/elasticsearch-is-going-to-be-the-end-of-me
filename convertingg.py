@@ -1,6 +1,13 @@
+import kaggle
 import pandas as pd
 
-df = pd.DataFrame(pd.read_csv("wiki_movie_plots_deduped.csv"))
+kaggle.api.authenticate()
+
+kaggle.api.dataset_download_files('jrobischon/wikipedia-movie-plots', path="downloaded_file", unzip=True)
+
+filename = "downloaded_file/wiki_movie_plots_deduped.csv"
+
+df = pd.DataFrame(pd.read_csv(filename))
 
 df.head()
 
